@@ -1,4 +1,4 @@
-package com.c195.c195nrains;
+package com.c195.c195nrains.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
