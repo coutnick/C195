@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="649.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.CustomerController">
+   <children>
+      <TableView fx:id="customerTableView" layoutX="45.0" layoutY="54.0" prefHeight="542.0" prefWidth="951.0">
+        <columns>
+          <TableColumn fx:id="customerIdTc" prefWidth="75.0" text="Customer ID" />
+          <TableColumn fx:id="customerNameTc" prefWidth="102.0" text="Customer Name" />
+            <TableColumn fx:id="addressTc" prefWidth="67.0" text="Address" />
+            <TableColumn fx:id="postalCodeTc" prefWidth="76.0" text="Postal Code" />
+            <TableColumn fx:id="phoneTc" prefWidth="93.0" text="Phone" />
+            <TableColumn fx:id="createDateTc" prefWidth="99.0" text="Create Date" />
+            <TableColumn fx:id="createdByTc" prefWidth="108.0" text="Created By" />
+            <TableColumn fx:id="lastUpdateTc" prefWidth="107.0" text="Last Update" />
+            <TableColumn fx:id="lastUpdatedByTc" prefWidth="109.0" text="Last Updated By" />
+            <TableColumn fx:id="divisionIdTc" prefWidth="114.0" text="Division ID" />
+        </columns>
+      </TableView>
+      <Button fx:id="addBut" layoutX="801.0" layoutY="610.0" mnemonicParsing="false" onAction="#addButClick" prefHeight="25.0" prefWidth="60.0" text="Add" />
+      <Button fx:id="updateBut" layoutX="871.0" layoutY="610.0" mnemonicParsing="false" onAction="#updateButClick" prefHeight="25.0" prefWidth="60.0" text="Update" />
+      <Button fx:id="deleteBut" layoutX="944.0" layoutY="610.0" mnemonicParsing="false" onAction="#deleteButClick" text="Delete" />
+      <Button fx:id="backBut" layoutX="45.0" layoutY="610.0" mnemonicParsing="false" onAction="#backButClick" text="Back" />
+      <Label layoutX="462.0" layoutY="14.0" prefHeight="35.0" prefWidth="118.0" text="Customers">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

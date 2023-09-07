@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.AddCustomerController">
+   <children>
+      <TextField fx:id="customerNameTf" layoutX="34.0" layoutY="72.0" promptText="Customer Name" />
+      <TextField fx:id="addressTf" layoutX="34.0" layoutY="109.0" promptText="Address" />
+      <TextField fx:id="postalCodeTf" layoutX="33.0" layoutY="144.0" promptText="Postal Code" />
+      <TextField fx:id="phoneNumberTf" layoutX="34.0" layoutY="181.0" promptText="Phone Number" />
+      <ComboBox fx:id="countryCb" layoutX="34.0" layoutY="216.0" onAction="#countrySelected" prefWidth="150.0" promptText="Country" />
+      <ComboBox fx:id="firstLevDivCb" layoutX="34.0" layoutY="251.0" prefWidth="150.0" promptText="First Level Diviision" />
+      <Button fx:id="submitBut" layoutX="253.0" layoutY="377.0" mnemonicParsing="false" onAction="#submitButClick" text="Submit" />
+      <Button fx:id="backBut" layoutX="33.0" layoutY="377.0" mnemonicParsing="false" onAction="#backButClick" text="Back" />
+      <Label fx:id="addUpdateLabel" layoutX="73.0" layoutY="14.0" text="Add/Update Customer">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
