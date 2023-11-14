@@ -47,6 +47,7 @@ public class MainMenuController {
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             System.out.println("caught error " + e);
@@ -64,6 +65,7 @@ public class MainMenuController {
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             System.out.println("caught error " + e);
@@ -87,6 +89,7 @@ public class MainMenuController {
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             System.out.println("caught error " + e);

@@ -26,6 +26,7 @@ public class App extends Application {
             stage.setTitle("Login");
         }
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 

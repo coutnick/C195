@@ -23,6 +23,10 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the report views GUI
+ */
+
 public class ReportController implements Initializable {
     public ComboBox<String> reportCb;
     public TableColumn<Appointments, String> appointmentIdTf;
@@ -42,7 +46,11 @@ public class ReportController implements Initializable {
     public TableView<Appointments> appointmentTv;
     public Label infoLabel;
 
-
+    /**
+     * Initializes the comboContentObservableList and the Month Observable list
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         comboContentObservableList.add("Type");
@@ -67,6 +75,11 @@ public class ReportController implements Initializable {
 
     }
 
+    /**
+     * This enables the option combo box corresponding to the report chosen
+     * @param actionEvent report combo box clicked
+     * @throws SQLException
+     */
     public void reportCbClicked(ActionEvent actionEvent) throws SQLException {
         ObservableList<Appointments> appointmentsObservableList = AppointmentQuery.getAppointmentData();
         String option = reportCb.getValue();
@@ -95,6 +108,7 @@ public class ReportController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             System.out.println("caught error " + e);
@@ -102,6 +116,12 @@ public class ReportController implements Initializable {
         }
     }
 
+    /**
+     * The lambda is this fucntion is used to set the time to the local time for every appointment in the list. The lambda
+     * justification is that it can go through a stream of all times and change the date.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void optionCbClicked(ActionEvent actionEvent) throws SQLException {
         ObservableList<Appointments> primaryAppointmentsObservableList = AppointmentQuery.getAppointmentData();
         String report = reportCb.getValue();
