@@ -101,7 +101,7 @@ public class AppointmentController implements Initializable {
 
     /**
      * Initializes the appointment screen in the GUI
-     * The lambdas in this function is used to set all times to the users timezone on their local machine. The justificaton
+     * @lambda The lambdas in this function is used to set all times to the users timezone on their local machine. The justificaton
      * for this lambda is it sets all the cells times without having to use a loop.
      * @param url
      * @param rb

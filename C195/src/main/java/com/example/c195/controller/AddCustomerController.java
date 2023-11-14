@@ -16,10 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -55,6 +52,8 @@ public class AddCustomerController implements Initializable {
     @FXML
     public ComboBox<String> countryCb;
 
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+
     /**
      * Sets all countires in the country combobox when the page first loads
      * @param url
@@ -78,17 +77,43 @@ public class AddCustomerController implements Initializable {
      * @throws SQLException
      */
     public void submitButClick(ActionEvent actionEvent) throws SQLException {
-        String name = customerNameTf.getText();
-        String address = addressTf.getText();
-        String zipCode = postalCodeTf.getText();
-        String phoneNumber = phoneNumberTf.getText();
-        LocalDateTime createDate = TimeStuff.utcFormattedTime(LocalDateTime.now());
-        String createdBy = UserQuery.getUserName(LoginController.staticUserId);
-        Timestamp lastUpdated = Timestamp.valueOf(TimeStuff.utcFormattedTime(LocalDateTime.now()));
-        String lastUpdatedBy = UserQuery.getUserName(LoginController.staticUserId);
-        String division = firstLevDivCb.getSelectionModel().getSelectedItem();
-        int divisionId = FirstLevelDivisionQuery.getDivisionId(division);
-        CustomerQuery.addCustomer( name, address, zipCode, phoneNumber, createDate, createdBy, lastUpdated, lastUpdatedBy, divisionId);
+        try {
+            String name = customerNameTf.getText();
+            if (name.isEmpty()) {
+                alert.setContentText("Please enter a name");
+                alert.showAndWait();
+                return;
+            }
+            String address = addressTf.getText();
+            if (address.isEmpty()) {
+                alert.setContentText("Please enter a address");
+                alert.showAndWait();
+                return;
+            }
+            String zipCode = postalCodeTf.getText();
+            if (zipCode.isEmpty()) {
+                alert.setContentText("Please enter a zip code");
+                alert.showAndWait();
+                return;
+            }
+            String phoneNumber = phoneNumberTf.getText();
+            if (phoneNumber.isEmpty()) {
+                alert.setContentText("Please enter a phone number");
+                alert.showAndWait();
+                return;
+            }
+            LocalDateTime createDate = TimeStuff.utcFormattedTime(LocalDateTime.now());
+            String createdBy = UserQuery.getUserName(LoginController.staticUserId);
+            Timestamp lastUpdated = Timestamp.valueOf(TimeStuff.utcFormattedTime(LocalDateTime.now()));
+            String lastUpdatedBy = UserQuery.getUserName(LoginController.staticUserId);
+            String division = firstLevDivCb.getSelectionModel().getSelectedItem();
+            int divisionId = FirstLevelDivisionQuery.getDivisionId(division);
+            CustomerQuery.addCustomer(name, address, zipCode, phoneNumber, createDate, createdBy, lastUpdated, lastUpdatedBy, divisionId);
+        } catch (NullPointerException nullPointerException) {
+            alert.setContentText("Please select a country and division");
+            alert.showAndWait();
+            return;
+        }
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("customer.fxml")));
             Scene scene = new Scene(root);

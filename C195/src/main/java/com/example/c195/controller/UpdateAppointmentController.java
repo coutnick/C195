@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Timestamp;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -107,37 +108,52 @@ public class UpdateAppointmentController implements Initializable {
      * @throws SQLException
      */
     public void submitButtonClick(ActionEvent actionEvent) throws SQLException {
-        int appointmentId = Integer.parseInt(appointmentIdTf.getText());
-        String title = titleTf.getText();
-        String description = descriptionTextArea.getText();
-        String location = locationTf.getText();
-        String type = typeTf.getText();
-        LocalDate startDate = startDatePicker.getValue();
-        int startHour = Integer.parseInt(startHourTf.getText());
-        int startMin = Integer.parseInt(startMinTf.getText());
-        LocalDateTime appointmentStartDate = LocalDateTime.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth(), startHour, startMin);
-        LocalDateTime convertedStartDate = TimeStuff.utcFormattedTime(appointmentStartDate);
-        LocalDate endDate = endDatePicker.getValue();
-        int endHour = Integer.parseInt(endHourTf.getText());
-        int endMin = Integer.parseInt(endMinTf.getText());
-        LocalDateTime appointmentEndDate = LocalDateTime.of(endDate.getYear(), endDate.getMonth(), startDate.getDayOfMonth(), endHour, endMin);
-        LocalDateTime convertedEndDate = TimeStuff.utcFormattedTime(appointmentEndDate);
-        String updatedBy = UserQuery.getUserName(LoginController.staticUserId);
-        Timestamp lastUpdated = Timestamp.valueOf(TimeStuff.utcFormattedTime(LocalDateTime.now()));
-        int customerId = Integer.parseInt(customerIdTf.getText());
-        int userId = Integer.parseInt(userIdTf.getText());
-        int contactId = ContactQuery.getContactId(contactComboBox.getValue());
-        if(endHour < 8 || endHour >= 22 || startHour < 8 || startHour >= 22) {
-            alert.setContentText("This appointment is outside of business hours. Please check the time and try again!");
+        try {
+            int appointmentId = Integer.parseInt(appointmentIdTf.getText());
+            String title = titleTf.getText();
+            String description = descriptionTextArea.getText();
+            String location = locationTf.getText();
+            String type = typeTf.getText();
+            LocalDate startDate = startDatePicker.getValue();
+            int startHour = Integer.parseInt(startHourTf.getText());
+            int startMin = Integer.parseInt(startMinTf.getText());
+            LocalDateTime appointmentStartDate = LocalDateTime.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth(), startHour, startMin);
+            LocalDateTime convertedStartDate = TimeStuff.utcFormattedTime(appointmentStartDate);
+            LocalDate endDate = endDatePicker.getValue();
+            int endHour = Integer.parseInt(endHourTf.getText());
+            int endMin = Integer.parseInt(endMinTf.getText());
+            LocalDateTime appointmentEndDate = LocalDateTime.of(endDate.getYear(), endDate.getMonth(), startDate.getDayOfMonth(), endHour, endMin);
+            LocalDateTime convertedEndDate = TimeStuff.utcFormattedTime(appointmentEndDate);
+            String updatedBy = UserQuery.getUserName(LoginController.staticUserId);
+            Timestamp lastUpdated = Timestamp.valueOf(TimeStuff.utcFormattedTime(LocalDateTime.now()));
+            int customerId = Integer.parseInt(customerIdTf.getText());
+            int userId = Integer.parseInt(userIdTf.getText());
+            int contactId = ContactQuery.getContactId(contactComboBox.getValue());
+            if (endHour < 8 || endHour >= 22 || startHour < 8 || startHour >= 22) {
+                alert.setContentText("This appointment is outside of business hours. Please check the time and try again!");
+                alert.showAndWait();
+                return;
+            }
+            if (TimeStuff.isWeekend(appointmentStartDate) || TimeStuff.isWeekend(appointmentEndDate)) {
+                alert.setContentText("This appointment is outside of business hours. Please check the date and try again!");
+                alert.showAndWait();
+                return;
+            }
+            AppointmentQuery.updateAppointment(appointmentId, title, description, location, type, convertedStartDate, convertedEndDate, lastUpdated, updatedBy, customerId, userId, contactId);
+        } catch (NumberFormatException numberFormatException) {
+            alert.setContentText("Please make sure that all fields are entered correctly");
+            alert.showAndWait();
+            return;
+        } catch (SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException) {
+            alert.setContentText("Please make sure that the customer and user ID exist and a contact is selected");
+            alert.showAndWait();
+            return;
+        } catch (RuntimeException e) {
+            alert.setContentText("Please make sure that the contact is selected and that the customer and user ID exist.");
             alert.showAndWait();
             return;
         }
-        if(TimeStuff.isWeekend(appointmentStartDate) || TimeStuff.isWeekend(appointmentEndDate)) {
-            alert.setContentText("This appointment is outside of business hours. Please check the date and try again!");
-            alert.showAndWait();
-            return;
-        }
-        AppointmentQuery.updateAppointment(appointmentId, title, description, location, type, convertedStartDate, convertedEndDate, lastUpdated, updatedBy, customerId, userId, contactId);
+
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("appointments.fxml")));
             Scene scene = new Scene(root);

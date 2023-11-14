@@ -46,6 +46,7 @@ public class LoginController implements Initializable {
     ResourceBundle rb = ResourceBundle.getBundle("resourcebundles.Nat", Locale.getDefault());
 
     Alert alert  = new Alert(Alert.AlertType.ERROR);
+    Alert alertTwo = new Alert(Alert.AlertType.INFORMATION);
 
     public static int staticUserId;
 
@@ -73,12 +74,21 @@ public class LoginController implements Initializable {
         ObservableList<Appointments> appointmentsObservableList = AppointmentQuery.getAppointmentData();
         for (Appointments appointment : appointmentsObservableList) {
             if (TimeStuff.withinFifteen(appointment.getStart())) {
-                alert.setContentText("Appointment: " + appointment.getAppointmentId() + " Date: " + TimeStuff.localFormattedTime(appointment.getStart())
-                        + " is coming up within the next 15 minutes!");
-                alert.showAndWait();
+                alertTwo.setContentText("Appointment: " + appointment.getAppointmentId() + " Date: " + TimeStuff.localFormattedTime(appointment.getStart())
+                        + " is coming up within the next 15 minutes! You will be taken to the appointment page. Select back "
+                        + "to select another view.");
+                alertTwo.showAndWait();
+                Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("appointments.fxml")));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.centerOnScreen();
+                stage.show();
+                return;
             }
         }
         try {
+            alertTwo.setContentText("There are no appointments in the next 15 minutes");
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("mainMenu.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -93,7 +103,7 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * This initializes the login screen when the applicaiton starts. It also will translate to french if the user is
+     * This initializes the login screen when the application starts. It also will translate to french if the user is
      * located in france
      * @param url
      * @param rb

@@ -181,7 +181,7 @@ public class CustomerController implements Initializable {
 
     /**
      * This action event deletes the selected customer.
-     * The lambda is this functions justification is to go through the stream and check to see if the customer that is trying to be deleted
+     * @lambda The lambda is this functions justification is to go through the stream and check to see if the customer that is trying to be deleted
      * has any other appointments. Due to database constraints the customer should not be deleted if they have appointments.
      * It goes through the stream and if ANY appointments customer ID matches any customer ID it shows an alert and the user is not deleted.
      * @param actionEvent customer is selected and delete button is clicked

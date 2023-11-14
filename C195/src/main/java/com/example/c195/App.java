@@ -1,8 +1,5 @@
 package com.example.c195;
 
-import com.example.c195.controller.AppointmentController;
-import com.example.c195.controller.LoginController;
-import com.example.c195.dao.AppointmentQuery;
 import com.example.c195.helper.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

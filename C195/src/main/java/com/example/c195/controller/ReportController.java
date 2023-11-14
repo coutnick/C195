@@ -117,7 +117,7 @@ public class ReportController implements Initializable {
     }
 
     /**
-     * The lambda is this fucntion is used to set the time to the local time for every appointment in the list. The lambda
+     * @lambda The lambda is this fucntion is used to set the time to the local time for every appointment in the list. The lambda
      * justification is that it can go through a stream of all times and change the date.
      * @param actionEvent
      * @throws SQLException
