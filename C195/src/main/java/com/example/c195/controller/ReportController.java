@@ -4,7 +4,6 @@ import com.example.c195.App;
 import com.example.c195.dao.*;
 import com.example.c195.helper.TimeStuff;
 import com.example.c195.model.Appointments;
-import com.example.c195.model.Contacts;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,9 +21,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ReportController implements Initializable {
@@ -86,7 +82,7 @@ public class ReportController implements Initializable {
                 optionCb.setItems(ContactQuery.getContactNames());
             } else if (option.equals("User")) {
                 optionCb.setDisable(false);
-                optionCb.setItems(UserQuery.getCustomerNames());
+                optionCb.setItems(UserQuery.getUserNames());
             }
         } catch (Exception e) {
             System.out.println(e);

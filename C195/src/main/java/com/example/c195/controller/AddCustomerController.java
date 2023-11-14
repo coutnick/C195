@@ -5,6 +5,7 @@ import com.example.c195.dao.CountryQuery;
 import com.example.c195.dao.CustomerQuery;
 import com.example.c195.dao.FirstLevelDivisionQuery;
 import com.example.c195.dao.UserQuery;
+import com.example.c195.helper.TimeStuff;
 import com.example.c195.model.Countries;
 import com.example.c195.model.FirstLevelDivisions;
 import javafx.collections.ObservableList;
@@ -30,6 +31,9 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * This add customer controller is used for the add customer page of the gui
+ */
 public class AddCustomerController implements Initializable {
 
     @FXML
@@ -51,6 +55,11 @@ public class AddCustomerController implements Initializable {
     @FXML
     public ComboBox<String> countryCb;
 
+    /**
+     * Sets all countires in the country combobox when the page first loads
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -62,14 +71,20 @@ public class AddCustomerController implements Initializable {
 
     }
 
+    /**
+     * Adds a customer to the customer table in the database. It converts all LocalDateTime and Timestamps to UTC time.
+     * It then takes the user back to the customer page
+     * @param actionEvent submit button clicked
+     * @throws SQLException
+     */
     public void submitButClick(ActionEvent actionEvent) throws SQLException {
         String name = customerNameTf.getText();
         String address = addressTf.getText();
         String zipCode = postalCodeTf.getText();
         String phoneNumber = phoneNumberTf.getText();
-        LocalDateTime createDate = LocalDateTime.now();
+        LocalDateTime createDate = TimeStuff.utcFormattedTime(LocalDateTime.now());
         String createdBy = UserQuery.getUserName(LoginController.staticUserId);
-        Timestamp lastUpdated = Timestamp.valueOf(LocalDateTime.now());
+        Timestamp lastUpdated = Timestamp.valueOf(TimeStuff.utcFormattedTime(LocalDateTime.now()));
         String lastUpdatedBy = UserQuery.getUserName(LoginController.staticUserId);
         String division = firstLevDivCb.getSelectionModel().getSelectedItem();
         int divisionId = FirstLevelDivisionQuery.getDivisionId(division);
@@ -85,6 +100,10 @@ public class AddCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Takes the user back to the customer page
+     * @param actionEvent back button clicked
+     */
     public void backButClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("customer.fxml")));
@@ -98,7 +117,11 @@ public class AddCustomerController implements Initializable {
         }
     }
 
-
+    /**
+     * Sets the state or province combo box when a country is selected
+     * @param actionEvent country combo box is changed
+     * @throws SQLException
+     */
     public void countrySelected(ActionEvent actionEvent) throws SQLException {
         try {
             String name = countryCb.getSelectionModel().getSelectedItem();

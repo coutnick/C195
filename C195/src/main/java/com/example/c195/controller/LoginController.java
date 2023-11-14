@@ -26,6 +26,9 @@ import java.util.ResourceBundle;
 
 import static javafx.application.Platform.exit;
 
+/**
+ * The login controller for the scheduler GUI
+ */
 public class LoginController implements Initializable {
     @FXML
     public TextField usernameTF;
@@ -46,6 +49,13 @@ public class LoginController implements Initializable {
 
     public static int staticUserId;
 
+    /**
+     * This action event lets a user login if they are validated in the UserQuery authenticate. If the user logins successfully
+     * the application will show a warning if there is an appointment within 15 mins of them logging in.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void loginButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
         staticUserId = UserQuery.validateLogin(usernameTF.getText(), passwordTF.getText());
@@ -81,6 +91,12 @@ public class LoginController implements Initializable {
         System.out.println(staticUserId);
     }
 
+    /**
+     * This initializes the login screen when the applicaiton starts. It also will translate to french if the user is
+     * located in france
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rb = ResourceBundle.getBundle("resourcebundles.Nat", Locale.getDefault());
@@ -99,6 +115,10 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Exits the application when exit is clicked
+     * @param actionEvent exit button clicked
+     */
     public void exitClick(ActionEvent actionEvent) {
         exit();
     }

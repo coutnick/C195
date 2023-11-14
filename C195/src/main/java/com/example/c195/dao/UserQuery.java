@@ -10,9 +10,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This UserQuery class is used to access the user table in the database
+ */
 public abstract class UserQuery {
 
-
+    /**
+     * This query validates that a user is logging in and has correct credentials
+     * @param userName valid user name
+     * @param password valid password
+     * @return a user id if valid. -1 if not valid
+     * @throws SQLException
+     */
 
     public static int validateLogin(String userName, String password) throws SQLException {
         String sql = "SELECT * FROM users";
@@ -33,8 +42,12 @@ public abstract class UserQuery {
     }
 
 
-
-
+    /**
+     * This query gets a username from the passed userId
+     * @param id
+     * @return username that corresponds with the id given
+     * @throws SQLException
+     */
     public static String getUserName(int id) throws SQLException {
         Connection connection = JDBC.connection;
         PreparedStatement ps = connection.prepareStatement("SELECT User_Name From users WHERE User_ID =" + id);
@@ -45,7 +58,12 @@ public abstract class UserQuery {
         return "";
     }
 
-    public static ObservableList<String> getCustomerNames() throws SQLException {
+    /**
+     * This query returns an observablelist of all usernames in the user table of the database
+     * @return ObservableList of strings
+     * @throws SQLException
+     */
+    public static ObservableList<String> getUserNames() throws SQLException {
         Connection connection = JDBC.connection;
         ObservableList<String> customerNameObservableList = FXCollections.observableArrayList();
         try {

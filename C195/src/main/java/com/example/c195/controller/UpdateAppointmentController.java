@@ -25,6 +25,9 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for updating an appointment
+ */
 public class UpdateAppointmentController implements Initializable {
 
     public TextField appointmentIdTf;
@@ -46,7 +49,11 @@ public class UpdateAppointmentController implements Initializable {
 
     Alert alert = new Alert(Alert.AlertType.WARNING);
 
-
+    /**
+     * Initializes the update appointment GUI and sets all the text fields
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -75,7 +82,10 @@ public class UpdateAppointmentController implements Initializable {
         }
     }
 
-
+    /**
+     * When the back button is clicked the user is sent back to the appointments page
+     * @param actionEvent back button is clicked
+     */
     public void backButtonClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("appointments.fxml")));
@@ -89,6 +99,12 @@ public class UpdateAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Updates an appointment when the submit button is clicked. Changes the time to UTC and makes sure there are no appointments set
+     * outside of business ours or overlapping with the updated time.
+     * @param actionEvent submit button clicked
+     * @throws SQLException
+     */
     public void submitButtonClick(ActionEvent actionEvent) throws SQLException {
         int appointmentId = Integer.parseInt(appointmentIdTf.getText());
         String title = titleTf.getText();

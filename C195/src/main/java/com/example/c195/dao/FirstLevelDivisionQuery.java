@@ -8,7 +8,16 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/**
+ * The FirstLevelDivisionQuery class access the firstLevelDivision table in the database
+ */
 public abstract class FirstLevelDivisionQuery {
+    /**
+     * This query access and returns all first level divisions in the first level divisions table of the database
+     * @param countryId
+     * @return Observable list of strings containing all first level divisions in the database
+     * @throws SQLException
+     */
     public static ObservableList<String> getFirstLevelDivisionData(int countryId) throws SQLException {
         Connection connection = JDBC.connection;
         ObservableList<String> firstLevelDivisionsObservableList = FXCollections.observableArrayList();
@@ -26,6 +35,12 @@ public abstract class FirstLevelDivisionQuery {
         return firstLevelDivisionsObservableList;
     }
 
+    /**
+     * This query returns a division Id that corresponds with the divisions name
+     * @param name
+     * @return a divisionid that corresponds with the name passed
+     * @throws SQLException
+     */
     public static int getDivisionId(String name) throws SQLException {
         Connection connection = JDBC.connection;
 
@@ -41,6 +56,12 @@ public abstract class FirstLevelDivisionQuery {
         return 1;
     }
 
+    /**
+     * This query gets a divisions name that corresponds to the passed divisionId
+     * @param divisionId
+     * @return a string the division name that corresponds to the passed divisionId
+     * @throws SQLException
+     */
     public static String getDivision(int divisionId) throws SQLException {
         Connection connection = JDBC.connection;
         try {
@@ -55,6 +76,12 @@ public abstract class FirstLevelDivisionQuery {
         return "";
     }
 
+    /**
+     * Gets a countryId from the database that corresponds to the name of the division passed
+     * @param division
+     * @return a countryId that corresponds to the name passed
+     * @throws SQLException
+     */
     public static int getCountryId(String division) throws SQLException {
         Connection connection = JDBC.connection;
         try {

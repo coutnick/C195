@@ -9,8 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Contact Query class for accessing the contact table in the database
+ */
 public class ContactQuery {
-
+    /**
+     * Gets all the contact name from the contact table in the database
+     * @return ObservableList of strings containing all names of contacts in the contact table from the database
+     * @throws SQLException
+     */
     public static ObservableList<String> getContactNames() throws SQLException {
         ObservableList<String> contactNamesObservableList = FXCollections.observableArrayList();
 
@@ -27,6 +34,12 @@ public class ContactQuery {
         return contactNamesObservableList;
     }
 
+    /**
+     * This function takes a contactId and returns a single contacts name from the contact table in the database
+     * @param contactId
+     * @return contactName that corresponds to the given contactId
+     * @throws SQLException
+     */
     public static String getContactName(int contactId) throws SQLException {
         Connection connection = JDBC.connection;
         try {
@@ -42,6 +55,12 @@ public class ContactQuery {
         return "";
     }
 
+    /**
+     * Gets a contactsId from the database.
+     * @param contactName name of ther persons ID
+     * @return the contactId of the name given
+     * @throws SQLException
+     */
     public static int getContactId(String contactName) throws SQLException {
         try {
             Connection connection = JDBC.connection;

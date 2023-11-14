@@ -23,6 +23,9 @@ import java.time.*;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * The add appointment Controller class is used for the add appointment view GUI
+ */
 public class AddAppointmentController implements Initializable {
     public TextArea descriptionTextArea;
     public TextField titleTf;
@@ -42,6 +45,11 @@ public class AddAppointmentController implements Initializable {
 
     Alert alert = new Alert(Alert.AlertType.WARNING);
 
+    /**
+     * Used to initialize the screen when the add appointment screen is started
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -52,6 +60,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * This action even takes a user back to the appointment page
+     * @param actionEvent back button clicked
+     */
     public void backButtonClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("appointments.fxml")));
@@ -65,6 +77,12 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * This summitButtonClick action event adds an appointment to the appointment table. It checks to see if the appointment
+     * is set outside of business hours and converts the time to UTC. It then takes the user back to the appointments page.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void submitButtonClick(ActionEvent actionEvent) throws SQLException {
         ObservableList<Appointments> appointmentsObservableList = AppointmentQuery.getAppointmentData();
         String title = titleTf.getText();

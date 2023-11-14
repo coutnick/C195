@@ -31,6 +31,9 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Customer controller for the Scheduler Gui
+ */
 public class CustomerController implements Initializable {
     @FXML
     public Button backBut;
@@ -77,6 +80,11 @@ public class CustomerController implements Initializable {
     Alert alert  = new Alert(Alert.AlertType.ERROR);
     Alert alertTwo = new Alert(Alert.AlertType.INFORMATION);
 
+    /**
+     * initializes the customer controller in the GUI with all customers in the customer table of the database
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try{
@@ -110,6 +118,10 @@ public class CustomerController implements Initializable {
 
     }
 
+    /**
+     * This action event takes the user back to the main-menu
+     * @param actionEvent back button clicked
+     */
 
     public void backButClick(ActionEvent actionEvent) {
         try {
@@ -124,6 +136,10 @@ public class CustomerController implements Initializable {
         }
     }
 
+    /**
+     * Takes the user to the add customer page
+     * @param actionEvent add button clicked
+     */
     public void addButClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("addCustomer.fxml")));
@@ -137,9 +153,18 @@ public class CustomerController implements Initializable {
         }
     }
 
+    /**
+     * Takes the user to the update page after they select a customer
+     * @param actionEvent update button is clicked after a customer is selected
+     */
     public void updateButClick(ActionEvent actionEvent) {
         try {
             customer = customerTableView.getSelectionModel().getSelectedItem();
+            if(customer == null) {
+                alert.setContentText("Please select a customer before trying to update!");
+                alert.showAndWait();
+                return;
+            }
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("updateCustomer.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -151,8 +176,21 @@ public class CustomerController implements Initializable {
         }
     }
 
+    /**
+     * This action event deletes the selected customer.
+     * The lambda is this functions justification is to go through the stream and check to see if the customer that is trying to be deleted
+     * has any other appointments. Due to database constraints the customer should not be deleted if they have appointments.
+     * It goes through the stream and if ANY appointments customer ID matches any customer ID it shows an alert and the user is not deleted.
+     * @param actionEvent customer is selected and delete button is clicked
+     * @throws SQLException
+     */
     public void deleteButClick(ActionEvent actionEvent) throws SQLException {
         customer = customerTableView.getSelectionModel().getSelectedItem();
+        if(customer == null) {
+            alert.setContentText("Please select a customer to delete");
+            alert.showAndWait();
+            return;
+        }
         appointments = AppointmentQuery.getAppointmentData();
         if(appointments.stream().anyMatch(appointment -> appointment.getCustomerId() == customer.getCustomerId())) {
                alert.setContentText("Can not delete this customer do to them having an appointment. Please " +

@@ -97,7 +97,15 @@ public class AppointmentController implements Initializable {
 
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     Alert alertTwo = new Alert(Alert.AlertType.INFORMATION);
+    Alert alertThree = new Alert(Alert.AlertType.WARNING);
 
+    /**
+     * Initializes the appointment screen in the GUI
+     * The lambdas in this function is used to set all times to the users timezone on their local machine. The justificaton
+     * for this lambda is it sets all the cells times without having to use a loop.
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -145,6 +153,10 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * This action even takes the user to the add appointment form
+     * @param actionEvent add button clicked
+     */
     public void addButtonClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("addAppointment.fxml")));
@@ -158,21 +170,34 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * This action event takes the user to a form to update the chosen appointment. If the appointment is null it shows an alert.
+     * @param actionEvent update button is clicked after a appointment is selected
+     * @throws IOException
+     */
     public void updateButtonClick(ActionEvent actionEvent) throws IOException {
         appointment = appointmentsTable.getSelectionModel().getSelectedItem();
+        if(appointment == null) {
+            alertThree.setContentText("Please select an appointment you would like to update");
+            alertThree.showAndWait();
+            return;
+        }
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("updateAppointment.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
-            System.out.println("caught error " + e);
-            e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.out.println(e);
         }
     }
 
-
+    /**
+     * This action event deletes the chosen appointment
+     * @param actionEvent appointment is selected and the delete button is clicked
+     * @throws SQLException
+     */
     public void deleteButtonClick(ActionEvent actionEvent) throws SQLException {
         appointment = appointmentsTable.getSelectionModel().getSelectedItem();
         alert.setContentText("Are you sure you want to delete this appointment");
@@ -200,6 +225,10 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Takes the user back to the main menu
+     * @param actionEvent back button clicked
+     */
     public void backButClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("mainMenu.fxml")));
@@ -213,6 +242,10 @@ public class AppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Filters the appointments coming in the next week
+     * @param actionEvent viewbyweek radio button selected
+     */
     public void viewByWeekSelected(ActionEvent actionEvent) {
         filteredAppointments.setPredicate(appointment -> {
             LocalDateTime now = LocalDateTime.now();
@@ -223,6 +256,11 @@ public class AppointmentController implements Initializable {
 
     }
 
+    /**
+     * This action even filters all appointments coming in the next month
+     * @param actionEvent viewByMonthRadioButton selected
+     * @throws SQLException
+     */
 
     public void viewByMonthSelected(ActionEvent actionEvent) throws SQLException {
         filteredAppointments.setPredicate(appointment -> {
@@ -235,6 +273,10 @@ public class AppointmentController implements Initializable {
 
     }
 
+    /**
+     * Clears the filters and shows the entire list of appointments
+     * @param actionEvent view all radio button selected
+     */
     public void viewAllRbSelected(ActionEvent actionEvent) {
         filteredAppointments.setPredicate(null);
     }

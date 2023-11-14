@@ -22,6 +22,9 @@ import java.util.ResourceBundle;
 
 import static javafx.application.Platform.exit;
 
+/**
+ * Main menu controller for the scheduler GUI
+ */
 public class MainMenuController {
     @FXML
     public Button viewCustomerBut;
@@ -34,7 +37,10 @@ public class MainMenuController {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
 
-
+    /**
+     * Takes user to the customer page
+     * @param actionEvent
+     */
     public void viewCustomerOnClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(App.class.getResource("customer.fxml"));
@@ -48,6 +54,10 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Takes the user to the appointment screen
+     * @param actionEvent
+     */
     public void viewAppointmentsClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(App.class.getResource("appointments.fxml"));
@@ -61,8 +71,16 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * exits the application
+     * @param actionEvent
+     */
     public void exitButtonClick(ActionEvent actionEvent) {exit();}
 
+    /**
+     * Takes the user to various reports
+     * @param actionEvent
+     */
     public void reportButtonClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(App.class.getResource("reports.fxml"));

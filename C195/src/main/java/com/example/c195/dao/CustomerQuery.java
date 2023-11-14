@@ -8,7 +8,15 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/**
+ * The customerQuery class access the customer table in the database
+ */
 public abstract class CustomerQuery {
+    /**
+     * This query returns an observable list of all customers in the customers table of the database
+     * @return ObservableList of customers
+     * @throws SQLException
+     */
     public static ObservableList<Customers> getCustomerData() throws SQLException {
         Connection connection = JDBC.connection;
         ObservableList<Customers> customersObservableList = FXCollections.observableArrayList();
@@ -31,6 +39,19 @@ public abstract class CustomerQuery {
         return customersObservableList;
     }
 
+    /**
+     * This query adds a single customer to the customer table in the database
+     * @param name
+     * @param address
+     * @param postalCode
+     * @param phone
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdate
+     * @param lastUpdatedBy
+     * @param divisionId
+     * @throws SQLException
+     */
     public static void addCustomer(String name, String address, String postalCode, String phone,
                                         LocalDateTime createDate, String createdBy, Timestamp lastUpdate,
                                         String lastUpdatedBy, int divisionId) throws SQLException {
@@ -61,6 +82,18 @@ public abstract class CustomerQuery {
         }
     }
 
+    /**
+     * This query updates a single customer in the customer table of the database
+     * @param customerId
+     * @param customerName
+     * @param address
+     * @param postalCode
+     * @param phone
+     * @param lastUpdated
+     * @param lastUpdatedBy
+     * @param divisionId
+     * @throws SQLException
+     */
     public static void updateCustomer(int customerId, String customerName, String address, String postalCode, String phone,
                                       Timestamp lastUpdated, String lastUpdatedBy, int divisionId) throws SQLException {
         Connection connection = JDBC.connection;
@@ -86,6 +119,10 @@ public abstract class CustomerQuery {
         }
     }
 
+    /**
+     * This query deletes a single customer from the customer table in the database
+     * @param customerId
+     */
     public static void deleteCustomer(int customerId) {
         Connection connection = JDBC.connection;
         try {

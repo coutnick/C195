@@ -9,8 +9,15 @@ import java.lang.reflect.Type;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/**
+ * AppointmentQuery Class that access the appointments table in the MySQL database
+ */
 public abstract class AppointmentQuery {
-
+    /**
+     * Gets the entire observable list of appointments
+     * @return ObservableList of appointments
+     * @throws SQLException
+     */
     public static ObservableList<Appointments> getAppointmentData() throws SQLException {
 
         Connection connection = JDBC.connection;
@@ -36,6 +43,22 @@ public abstract class AppointmentQuery {
         return appointmentsObservableList;
     }
 
+    /**
+     * Adds an appointment to the database
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdate
+     * @param lastUpdatedBy
+     * @param customerId
+     * @param userId
+     * @param contactId
+     */
     public static void addAppointment(String title, String description, String location, String type, LocalDateTime start,
                                       LocalDateTime end, LocalDateTime createDate, String createdBy, Timestamp lastUpdate,
                                       String lastUpdatedBy, int customerId, int userId, int contactId) {
@@ -69,6 +92,10 @@ public abstract class AppointmentQuery {
 
     }
 
+    /**
+     * Gets a list of types of appointments
+     * @return observableList of strings
+     */
     public static ObservableList<String> getAppointmentTypes() {
         ObservableList<String> types = FXCollections.observableArrayList();
         Connection connection = JDBC.connection;
@@ -85,6 +112,12 @@ public abstract class AppointmentQuery {
         return types;
     }
 
+    /**
+     * Gets an entire list of appointments by type
+     * @param type
+     * @return ObservableList of appointments by types
+     * @throws SQLException
+     */
     public static ObservableList<Appointments> getAppointmentsByType(String type) throws SQLException {
         ObservableList<Appointments> appointmentsObservableList = FXCollections.observableArrayList();
         try {
@@ -111,6 +144,21 @@ public abstract class AppointmentQuery {
         return appointmentsObservableList;
     }
 
+    /**
+     * Updates an appointment from the appointment table in the database
+     * @param appointmentId
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param lastUpdate
+     * @param lastUpdatedBy
+     * @param customerId
+     * @param userId
+     * @param contactId
+     */
     public static void updateAppointment(int appointmentId, String title, String description, String location, String type, LocalDateTime start,
                                          LocalDateTime end, Timestamp lastUpdate, String lastUpdatedBy, int customerId,
                                          int userId, int contactId) {
@@ -141,6 +189,11 @@ public abstract class AppointmentQuery {
         }
     }
 
+    /**
+     * Deletes an appointment from the appointments table in the database
+     * @param appointmentId The appointment ID of the appointment being deleted
+     * @throws SQLException
+     */
     public static void deleteAppointment(int appointmentId) throws SQLException {
         try {
             Connection connection = JDBC.connection;

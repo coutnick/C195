@@ -10,8 +10,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This countryQuery class is used to access the country table in the database
+ */
 public abstract class CountryQuery {
-
+    /**
+     * This query returns an observable list of strings containing all countries names from the country table in
+     * the database
+     * @return ObservableList of strings containing the name of all countries in the countries table
+     * @throws SQLException
+     */
     public static ObservableList<String> getCountryData() throws SQLException {
         ObservableList<String>  countryNameObservableList = FXCollections.observableArrayList();
         try {
@@ -28,6 +36,12 @@ public abstract class CountryQuery {
         return countryNameObservableList;
     }
 
+    /**
+     * This query gets the countryId corresponding to the name of the country passed
+     * @param countryName
+     * @return the countryId of the searched name
+     * @throws SQLException
+     */
     public static int getCountryId(String countryName) throws SQLException {
         try {
             Connection connection = JDBC.connection;
@@ -42,6 +56,12 @@ public abstract class CountryQuery {
         return 1;
     }
 
+    /**
+     * This query returns a countries name given a countryId
+     * @param countryId
+     * @return the countries name that corresponds with the passed countryId
+     * @throws SQLException
+     */
     public static String getCountry(int countryId) throws SQLException {
         Connection connection = JDBC.connection;
         try {

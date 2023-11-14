@@ -6,3 +6,12 @@ Username: testTime/Date: 2023-11-13T21:12:51.660114600 Allowed
 Username: testTime/Date: 2023-11-13T21:13:59.216885800 Allowed
 Username: testTime/Date: 2023-11-13T21:19:00.340590400 Allowed
 Username: testTime/Date: 2023-11-13T21:19:15.548006800 Allowed
+Username: testTime/Date: 2023-11-14T09:10:37.426707800 Allowed
+Username: testTime/Date: 2023-11-14T09:42:55.456002200 Allowed
+Username: testTime/Date: 2023-11-14T09:46:23.259992800 Allowed
+Username: testTime/Date: 2023-11-14T09:47:14.722056100 Allowed
+Username: testTime/Date: 2023-11-14T09:47:32.445578500 Allowed
+Username: testTime/Date: 2023-11-14T10:06:07.607905900 Allowed
+Username: testTime/Date: 2023-11-14T10:37:36.066522800 Denied
+Username: testTime/Date: 2023-11-14T10:37:39.338655500 Allowed
+Username: testTime/Date: 2023-11-14T10:40:06.152593500 Allowed

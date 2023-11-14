@@ -27,6 +27,9 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Update customer controller for the scheduler GUI
+ */
 public class UpdateCustomerController implements Initializable {
     @FXML
     public TextField customerIdTf;
@@ -49,12 +52,15 @@ public class UpdateCustomerController implements Initializable {
     @FXML
     public ComboBox<String> countryCb;
 
-
+    /**
+     * This is for initializing the update customer controller
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             ObservableList<String> countryNameObservableList = CountryQuery.getCountryData();
-
             countryCb.setItems(countryNameObservableList);
             customerIdTf.setText(Integer.valueOf(CustomerController.customer.getCustomerId()).toString());
             customerNameTf.setText(CustomerController.customer.getCustomerName());
@@ -74,8 +80,12 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
+    /**
+     * This action even updates a customer
+     * @param actionEvent submit button clicked
+     * @throws SQLException
+     */
     public void submitButClick(ActionEvent actionEvent) throws SQLException {
-
         int customerId = Integer.parseInt(customerIdTf.getText());
         String name = customerNameTf.getText();
         String address = addressTf.getText();
@@ -85,10 +95,7 @@ public class UpdateCustomerController implements Initializable {
         String lastUpdatedBy = UserQuery.getUserName(LoginController.staticUserId);
         String division = firstLevDivCb.getSelectionModel().getSelectedItem();
         int divisionId = FirstLevelDivisionQuery.getDivisionId(division);
-
-
         CustomerQuery.updateCustomer(customerId, name, address, postalCode, phone, lastUpdated, lastUpdatedBy, divisionId);
-
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("customer.fxml")));
             Scene scene = new Scene(root);
@@ -98,9 +105,12 @@ public class UpdateCustomerController implements Initializable {
         } catch (Exception e) {
             e.getCause();
         }
-
     }
 
+    /**
+     * This action event takes a user back to the customer screen
+     * @param actionEvent back button
+     */
     public void backButClick(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(App.class.getResource("customer.fxml"));
@@ -114,6 +124,11 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Used to populate the division combo box
+     * @param actionEvent countryCb is clicked
+     * @throws SQLException
+     */
     public void countrySelected(ActionEvent actionEvent) throws SQLException {
         try {
             String name = countryCb.getSelectionModel().getSelectedItem();
