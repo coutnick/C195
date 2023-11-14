@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="904.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.ReportController">
+   <children>
+      <Label layoutX="391.0" layoutY="40.0" text="Reports" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="reportCb" layoutX="31.0" layoutY="116.0" onAction="#reportCbClicked" prefWidth="150.0" promptText="Select Report" />
+      <TableView fx:id="appointmentTv" layoutX="31.0" layoutY="171.0" prefHeight="362.0" prefWidth="843.0">
+        <columns>
+          <TableColumn fx:id="appointmentIdTf" prefWidth="102.0" text="Appointment ID" />
+          <TableColumn fx:id="titleTf" prefWidth="74.0" text="Title" />
+            <TableColumn fx:id="typeTf" prefWidth="78.0" text="Type" />
+            <TableColumn fx:id="descriptionTf" prefWidth="81.0" text="Description" />
+            <TableColumn fx:id="startDateTf" prefWidth="183.0" text="Start Date" />
+            <TableColumn fx:id="endDateTf" prefWidth="208.0" text="End Date" />
+            <TableColumn fx:id="customerTf" prefWidth="114.0" text="Customer ID" />
+        </columns>
+      </TableView>
+      <Button fx:id="backButton" layoutX="838.0" layoutY="581.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
+      <ComboBox fx:id="optionCb" disable="true" layoutX="202.0" layoutY="116.0" onAction="#optionCbClicked" prefWidth="150.0" />
+      <Label fx:id="infoLabel" layoutX="435.0" layoutY="129.0" prefHeight="17.0" prefWidth="375.0" text="Information: " />
+   </children>
+</AnchorPane>

@@ -6,26 +6,39 @@
 
 <AnchorPane prefHeight="501.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.AddAppointmentController">
    <children>
-      <TextField disable="true" layoutX="62.0" layoutY="77.0" promptText="Appointment ID (Auto Generated)" />
-      <TextArea fx:id="descriptionTextArea" layoutX="220.0" layoutY="218.0" prefHeight="200.0" prefWidth="308.0" promptText="Description" />
-      <TextField fx:id="titleTf" layoutX="62.0" layoutY="118.0" promptText="Title" />
-      <ComboBox fx:id="contactComboBox" layoutX="62.0" layoutY="263.0" prefHeight="25.0" prefWidth="149.0" promptText="Contact" />
-      <TextField fx:id="locationTf" layoutX="385.0" layoutY="77.0" prefHeight="25.0" prefWidth="149.0" promptText="Location" />
-      <TextField fx:id="typeTf" layoutX="225.0" layoutY="77.0" prefHeight="25.0" prefWidth="149.0" promptText="Type" />
-      <DatePicker fx:id="startDatePicker" layoutX="224.0" layoutY="118.0" prefHeight="25.0" prefWidth="149.0" promptText="Start Date" />
-      <DatePicker fx:id="endDatePicker" layoutX="385.0" layoutY="118.0" prefHeight="25.0" prefWidth="149.0" promptText="End Date" />
-      <TextField fx:id="userIdTf" layoutX="62.0" layoutY="165.0" prefHeight="25.0" prefWidth="149.0" promptText="User ID" />
-      <TextField fx:id="customerIdTf" layoutX="63.0" layoutY="218.0" prefHeight="25.0" prefWidth="149.0" promptText="Customer ID" />
-      <Button fx:id="backButton" layoutX="427.0" layoutY="439.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="25.0" prefWidth="54.0" text="Back" />
-      <Button fx:id="submitButton" layoutX="494.0" layoutY="439.0" mnemonicParsing="false" onAction="#submitButtonClick" text="Submit" />
-      <Label layoutX="108.0" layoutY="14.0" prefHeight="53.0" prefWidth="422.0" text="Add An Appointment" textAlignment="JUSTIFY" textFill="#a10404">
+      <TextField disable="true" layoutX="62.0" layoutY="90.0" promptText="Appointment ID (Auto Generated)" />
+      <TextField fx:id="typeTf" layoutX="221.0" layoutY="90.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="locationTf" layoutX="383.0" layoutY="90.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="titleTf" layoutX="62.0" layoutY="143.0" />
+      <DatePicker fx:id="startDatePicker" layoutX="223.0" layoutY="143.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="endDatePicker" layoutX="385.0" layoutY="143.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="userIdTf" layoutX="62.0" layoutY="190.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="startHourTf" layoutX="223.0" layoutY="190.0" prefHeight="25.0" prefWidth="72.0" />
+      <TextField fx:id="startMinTf" layoutX="300.0" layoutY="190.0" prefHeight="25.0" prefWidth="72.0" />
+      <TextField fx:id="endHourTf" layoutX="385.0" layoutY="190.0" prefHeight="25.0" prefWidth="72.0" />
+      <TextField fx:id="endMinTf" layoutX="469.0" layoutY="190.0" prefHeight="25.0" prefWidth="72.0" />
+      <TextField fx:id="customerIdTf" layoutX="62.0" layoutY="251.0" prefHeight="25.0" prefWidth="149.0" />
+      <ComboBox fx:id="contactComboBox" layoutX="63.0" layoutY="319.0" prefHeight="25.0" prefWidth="149.0" promptText="Contact" />
+      <TextArea fx:id="descriptionTextArea" layoutX="259.0" layoutY="244.0" prefHeight="200.0" prefWidth="308.0" />
+      <Button fx:id="backButton" layoutX="478.0" layoutY="452.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="25.0" prefWidth="54.0" text="Back" />
+      <Button fx:id="submitButton" layoutX="554.0" layoutY="452.0" mnemonicParsing="false" onAction="#submitButtonClick" text="Submit" />
+      <Label layoutX="125.0" prefHeight="53.0" prefWidth="422.0" text="Add An Appointment" textAlignment="JUSTIFY">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="startHourTf" layoutX="225.0" layoutY="165.0" prefHeight="25.0" prefWidth="72.0" promptText="Start HH" />
-      <TextField fx:id="startMinTf" layoutX="299.0" layoutY="165.0" prefHeight="25.0" prefWidth="72.0" promptText="Start MM" />
-      <TextField fx:id="endHourTf" layoutX="385.0" layoutY="165.0" prefHeight="25.0" prefWidth="72.0" promptText="End HH" />
-      <TextField fx:id="endMinTf" layoutX="462.0" layoutY="165.0" prefHeight="25.0" prefWidth="72.0" promptText="End MM" />
+      <Label layoutX="63.0" layoutY="67.0" text="Appointment ID" />
+      <Label layoutX="223.0" layoutY="67.0" text="Appointment Type" />
+      <Label layoutX="385.0" layoutY="67.0" text="Appointment Location" />
+      <Label layoutX="63.0" layoutY="126.0" text="Appointment Title" />
+      <Label layoutX="223.0" layoutY="126.0" text="Appointment Start Day" />
+      <Label layoutX="385.0" layoutY="126.0" text="Appointment End Day" />
+      <Label layoutX="63.0" layoutY="173.0" text="User ID" />
+      <Label layoutX="223.0" layoutY="173.0" text="Start HH" />
+      <Label layoutX="300.0" layoutY="173.0" text="Start MM" />
+      <Label layoutX="385.0" layoutY="173.0" text="End HH" />
+      <Label layoutX="469.0" layoutY="173.0" text="End MM" />
+      <Label layoutX="63.0" layoutY="236.0" text="Customer ID" />
+      <Label layoutX="385.0" layoutY="228.0" text="Description" />
    </children>
 </AnchorPane>

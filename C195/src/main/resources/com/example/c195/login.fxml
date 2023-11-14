@@ -3,12 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="544.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.LoginController">
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.LoginController">
    <children>
       <TextField fx:id="usernameTF" layoutX="41.0" layoutY="184.0" prefHeight="25.0" prefWidth="300.0" promptText="Username" />
       <PasswordField fx:id="passwordTF" layoutX="41.0" layoutY="226.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" />
       <Button fx:id="loginBut" layoutX="159.0" layoutY="272.0" mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="19.0" prefWidth="65.0" text="Login" />
-      <Label fx:id="zoneIdLabel" layoutX="325.0" layoutY="505.0" prefHeight="25.0" prefWidth="84.0" text="zoneID" />
-      <Button layoutX="165.0" layoutY="309.0" mnemonicParsing="false" text="Button" />
+      <Label fx:id="zoneIdLabel" layoutX="142.0" layoutY="349.0" prefHeight="25.0" prefWidth="100.0" text="zoneID" textAlignment="CENTER" />
+      <Button fx:id="exitBut" layoutX="159.0" layoutY="309.0" mnemonicParsing="false" onAction="#exitClick" prefHeight="25.0" prefWidth="65.0" text="Exit" />
    </children>
 </AnchorPane>

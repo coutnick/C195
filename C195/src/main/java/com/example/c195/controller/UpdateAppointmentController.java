@@ -3,7 +3,8 @@ package com.example.c195.controller;
 import com.example.c195.App;
 import com.example.c195.dao.AppointmentQuery;
 import com.example.c195.dao.ContactQuery;
-import com.example.c195.model.Appointments;
+import com.example.c195.dao.UserQuery;
+import com.example.c195.helper.TimeStuff;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +17,11 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -40,6 +44,8 @@ public class UpdateAppointmentController implements Initializable {
     public TextField startMinTf;
     public TextField endMinTf;
 
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,10 +64,10 @@ public class UpdateAppointmentController implements Initializable {
             locationTf.setText(AppointmentController.appointment.getLocation());
             startDatePicker.setValue(AppointmentController.appointment.getStart().toLocalDate());
             startHourTf.setText(Integer.valueOf(AppointmentController.appointment.getStart().getHour()).toString());
-            startMinTf.setText(startMin);
+            startMinTf.setText(String.valueOf(AppointmentController.appointment.getStart().getMinute()));
             endDatePicker.setValue(AppointmentController.appointment.getEnd().toLocalDate());
             endHourTf.setText(Integer.valueOf(AppointmentController.appointment.getEnd().getHour()).toString());
-            endMinTf.setText(endMin);
+            endMinTf.setText(String.valueOf(AppointmentController.appointment.getEnd().getMinute()));
             descriptionTextArea.setText(AppointmentController.appointment.getDescription());
             contactComboBox.setValue(ContactQuery.getContactName(AppointmentController.appointment.getContactId()));
         } catch (Exception e) {
@@ -83,8 +89,50 @@ public class UpdateAppointmentController implements Initializable {
         }
     }
 
-    public void submitButtonClick(ActionEvent actionEvent) {
+    public void submitButtonClick(ActionEvent actionEvent) throws SQLException {
+        int appointmentId = Integer.parseInt(appointmentIdTf.getText());
+        String title = titleTf.getText();
+        String description = descriptionTextArea.getText();
+        String location = locationTf.getText();
+        String type = typeTf.getText();
+        LocalDate startDate = startDatePicker.getValue();
+        int startHour = Integer.parseInt(startHourTf.getText());
+        int startMin = Integer.parseInt(startMinTf.getText());
+        LocalDateTime appointmentStartDate = LocalDateTime.of(startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth(), startHour, startMin);
+        LocalDateTime convertedStartDate = TimeStuff.utcFormattedTime(appointmentStartDate);
+        LocalDate endDate = endDatePicker.getValue();
+        int endHour = Integer.parseInt(endHourTf.getText());
+        int endMin = Integer.parseInt(endMinTf.getText());
+        LocalDateTime appointmentEndDate = LocalDateTime.of(endDate.getYear(), endDate.getMonth(), startDate.getDayOfMonth(), endHour, endMin);
+        LocalDateTime convertedEndDate = TimeStuff.utcFormattedTime(appointmentEndDate);
+        String updatedBy = UserQuery.getUserName(LoginController.staticUserId);
+        Timestamp lastUpdated = Timestamp.valueOf(TimeStuff.utcFormattedTime(LocalDateTime.now()));
+        int customerId = Integer.parseInt(customerIdTf.getText());
+        int userId = Integer.parseInt(userIdTf.getText());
+        int contactId = ContactQuery.getContactId(contactComboBox.getValue());
+        if(endHour < 8 || endHour >= 22 || startHour < 8 || startHour >= 22) {
+            alert.setContentText("This appointment is outside of business hours. Please check the time and try again!");
+            alert.showAndWait();
+            return;
+        }
+        if(TimeStuff.isWeekend(appointmentStartDate) || TimeStuff.isWeekend(appointmentEndDate)) {
+            alert.setContentText("This appointment is outside of business hours. Please check the date and try again!");
+            alert.showAndWait();
+            return;
+        }
+        AppointmentQuery.updateAppointment(appointmentId, title, description, location, type, convertedStartDate, convertedEndDate, lastUpdated, updatedBy, customerId, userId, contactId);
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("appointments.fxml")));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
     }
+
 
 
 }

@@ -1,8 +1,14 @@
 package com.example.c195.controller;
 
 import com.example.c195.App;
+import com.example.c195.dao.AppointmentQuery;
 import com.example.c195.dao.CustomerQuery;
+import com.example.c195.dao.FirstLevelDivisionQuery;
+import com.example.c195.dao.UserQuery;
+import com.example.c195.model.Appointments;
 import com.example.c195.model.Customers;
+import com.example.c195.model.FirstLevelDivisions;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -59,18 +66,21 @@ public class CustomerController implements Initializable {
     public TableColumn<Customers, String> lastUpdatedByTc;
 
     @FXML
-    public TableColumn<Customers, Integer> divisionIdTc;
+    public TableColumn<Customers, String> divisionIdTc;
     public Button addBut;
     public Button updateBut;
     public Button deleteBut;
 
     public static Customers customer;
 
+    public static ObservableList<Appointments> appointments;
+    Alert alert  = new Alert(Alert.AlertType.ERROR);
+    Alert alertTwo = new Alert(Alert.AlertType.INFORMATION);
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try{
             ObservableList<Customers> customersObservableList = CustomerQuery.getCustomerData();
-
             customerIdTc.setCellValueFactory(new PropertyValueFactory<>("customerId"));
             customerNameTc.setCellValueFactory(new PropertyValueFactory<>("customerName"));
             addressTc.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -80,10 +90,19 @@ public class CustomerController implements Initializable {
             createdByTc.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
             lastUpdateTc.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
             lastUpdatedByTc.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
-            divisionIdTc.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+            divisionIdTc.setCellValueFactory(cellData -> {
+                int divisionId = cellData.getValue().getDivisionId();
+                String divisionName;
+                try {
+                    divisionName = FirstLevelDivisionQuery.getDivision(divisionId);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                return new SimpleStringProperty(divisionName);
+
+            });
 
             customerTableView.setItems(customersObservableList);
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -94,7 +113,7 @@ public class CustomerController implements Initializable {
 
     public void backButClick(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(App.class.getResource("mainMenu.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("mainMenu.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -132,6 +151,29 @@ public class CustomerController implements Initializable {
         }
     }
 
-    public void deleteButClick(ActionEvent actionEvent) {
+    public void deleteButClick(ActionEvent actionEvent) throws SQLException {
+        customer = customerTableView.getSelectionModel().getSelectedItem();
+        appointments = AppointmentQuery.getAppointmentData();
+        if(appointments.stream().anyMatch(appointment -> appointment.getCustomerId() == customer.getCustomerId())) {
+               alert.setContentText("Can not delete this customer do to them having an appointment. Please " +
+                       "make sure the customer does not have an appointment before delete!");
+               alert.showAndWait();
+               return;
+           }
+        CustomerQuery.deleteCustomer(customer.getCustomerId());
+        alertTwo.setContentText("Customer: " + customer.getCustomerName() + " has been deleted!");
+        alertTwo.showAndWait();
+
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("customer.fxml")));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("caught error " + e);
+            e.printStackTrace();
+        }
+
     }
 }

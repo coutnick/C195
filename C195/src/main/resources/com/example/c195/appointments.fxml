@@ -4,30 +4,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1099.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.AppointmentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1230.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.AppointmentController">
    <children>
-      <TableView fx:id="appointmentsTable" layoutX="24.0" layoutY="85.0" prefHeight="534.0" prefWidth="1052.0">
+      <RadioButton fx:id="viewByWeekRB" layoutX="795.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewByWeekSelected" text="View By Week" />
+      <RadioButton fx:id="viewByMonthRB" layoutX="919.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewByMonthSelected" text="View By Month" />
+      <TableView fx:id="appointmentsTable" layoutX="8.0" layoutY="85.0" prefHeight="534.0" prefWidth="1209.0">
         <columns>
-          <TableColumn fx:id="appointmentIdTc" prefWidth="75.0" text="Appointment ID" />
-          <TableColumn fx:id="titleTc" prefWidth="75.0" text="Title" />
-            <TableColumn fx:id="descriptionTc" prefWidth="75.0" text="Description" />
-            <TableColumn fx:id="locationTc" prefWidth="75.0" text="Location" />
-            <TableColumn fx:id="typeTc" prefWidth="75.0" text="Type" />
-            <TableColumn fx:id="startTc" prefWidth="75.0" text="Start" />
-            <TableColumn fx:id="endTc" prefWidth="75.0" text="End" />
-            <TableColumn fx:id="createDateTc" prefWidth="75.0" text="Create Date" />
-            <TableColumn fx:id="createdByTc" prefWidth="75.0" text="Created By" />
-            <TableColumn fx:id="lastUpdateTimeTc" prefWidth="75.0" text="Last Update" />
-            <TableColumn fx:id="lastUpdatedByTc" prefWidth="75.0" text="Last Updated By" />
-            <TableColumn fx:id="customerIdTc" prefWidth="75.0" text="Customer ID" />
-            <TableColumn fx:id="userIdTc" prefWidth="75.0" text="User ID" />
-            <TableColumn fx:id="contactIdTc" prefWidth="75.0" text="Contact ID" />
+          <TableColumn fx:id="appointmentIdTc" prefWidth="103.0" text="Appointment ID" />
+          <TableColumn fx:id="titleTc" prefWidth="69.0" text="Title" />
+            <TableColumn fx:id="descriptionTc" prefWidth="81.0" text="Description" />
+            <TableColumn fx:id="locationTc" prefWidth="74.0" text="Location" />
+            <TableColumn fx:id="typeTc" prefWidth="66.0" text="Type" />
+            <TableColumn fx:id="startTc" prefWidth="107.0" text="Start" />
+            <TableColumn fx:id="endTc" prefWidth="96.0" text="End" />
+            <TableColumn fx:id="createDateTc" minWidth="4.0" prefWidth="123.0" text="Create Date" />
+            <TableColumn fx:id="createdByTc" minWidth="7.0" prefWidth="71.0" text="Created By" />
+            <TableColumn fx:id="lastUpdateTimeTc" prefWidth="96.0" text="Last Update" />
+            <TableColumn fx:id="lastUpdatedByTc" prefWidth="106.0" text="Last Updated By" />
+            <TableColumn fx:id="customerIdTc" prefWidth="76.0" text="Customer ID" />
+            <TableColumn fx:id="userIdTc" prefWidth="72.0" text="User ID" />
+            <TableColumn fx:id="contactIdTc" prefWidth="68.0" text="Contact ID" />
         </columns>
       </TableView>
       <Button fx:id="addButton" layoutX="891.0" layoutY="653.0" mnemonicParsing="false" onAction="#addButtonClick" prefHeight="25.0" prefWidth="55.0" text="Add" />
       <Button fx:id="updateButton" layoutX="956.0" layoutY="653.0" mnemonicParsing="false" onAction="#updateButtonClick" text="Update" />
       <Button fx:id="deleteButton" layoutX="1021.0" layoutY="653.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="25.0" prefWidth="55.0" text="Delete" />
       <Button fx:id="backBut" layoutX="24.0" layoutY="653.0" mnemonicParsing="false" onAction="#backButClick" prefHeight="25.0" prefWidth="55.0" text="Back" />
+      <RadioButton fx:id="viewAllRb" layoutX="693.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewAllRbSelected" text="View All" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

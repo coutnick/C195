@@ -4,10 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="314.0" prefWidth="472.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.MainMenuController">
+<AnchorPane prefHeight="372.0" prefWidth="472.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c195.controller.MainMenuController">
    <children>
       <Button fx:id="viewCustomerBut" layoutX="176.0" layoutY="144.0" mnemonicParsing="false" onAction="#viewCustomerOnClick" prefHeight="25.0" prefWidth="120.0" text="View Customers" />
       <Button fx:id="viewAppointmentsBut" layoutX="176.0" layoutY="181.0" mnemonicParsing="false" onAction="#viewAppointmentsClick" text="View Appointments" />
+      <Button fx:id="reportButton" layoutX="176.0" layoutY="215.0" mnemonicParsing="false" onAction="#reportButtonClick" prefHeight="25.0" prefWidth="120.0" text="Reports" />
+      <Button fx:id="exitButton" layoutX="176.0" layoutY="252.0" mnemonicParsing="false" onAction="#exitButtonClick" prefHeight="25.0" prefWidth="120.0" text="Exit" />
       <Label layoutX="180.0" layoutY="54.0" text="Welcome">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -18,6 +20,5 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="exitButton" layoutX="176.0" layoutY="218.0" mnemonicParsing="false" onAction="#exitButtonClick" prefHeight="25.0" prefWidth="120.0" text="Exit" />
    </children>
 </AnchorPane>

@@ -85,5 +85,20 @@ public abstract class CustomerQuery {
             System.out.println(e);
         }
     }
+
+    public static void deleteCustomer(int customerId) {
+        Connection connection = JDBC.connection;
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM customers WHERE Customer_ID = " + customerId);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Customer Deleted");
+            } else {
+                System.out.println("There was an error deleting");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 }
 

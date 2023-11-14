@@ -16,25 +16,20 @@ import java.util.ResourceBundle;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        ResourceBundle rb = ResourceBundle.getBundle("resourcebundles.Nat", Locale.getDefault());
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 381, 544);
-        stage.setTitle("Hello!");
+        if(Locale.getDefault().getLanguage().equals("fr")) {
+            stage.setTitle(rb.getString("login"));
+        }
+        else {
+            stage.setTitle("Login");
+        }
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
-
-        ResourceBundle rb = ResourceBundle.getBundle("resourcebundles.Nat", Locale.getDefault());
-
-        if(Locale.getDefault().getLanguage().equals("fr") ) {
-            System.out.println(rb.getString("login"));
-        }
-
-        if(Locale.getDefault().getLanguage().equals("en") ) {
-            System.out.println("Still english");
-        }
-
         JDBC.openConnection();
         launch(args);
         System.out.println();

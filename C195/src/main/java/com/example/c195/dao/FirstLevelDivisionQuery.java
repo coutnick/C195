@@ -68,4 +68,6 @@ public abstract class FirstLevelDivisionQuery {
         }
         return 1;
     }
+
+
 }

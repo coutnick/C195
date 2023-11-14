@@ -54,11 +54,8 @@ public class UpdateCustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             ObservableList<String> countryNameObservableList = CountryQuery.getCountryData();
-            ObservableList<String> firstLevelDivisionObservableList = FirstLevelDivisionQuery
-                            .getFirstLevelDivisionData(CustomerController.customer.getDivisionId());
-            countryCb.setItems(countryNameObservableList);
-            firstLevDivCb.setItems(firstLevelDivisionObservableList);
 
+            countryCb.setItems(countryNameObservableList);
             customerIdTf.setText(Integer.valueOf(CustomerController.customer.getCustomerId()).toString());
             customerNameTf.setText(CustomerController.customer.getCustomerName());
             addressTf.setText(CustomerController.customer.getAddress());
@@ -68,6 +65,10 @@ public class UpdateCustomerController implements Initializable {
             countryCb.setValue(CountryQuery
                             .getCountry(FirstLevelDivisionQuery.getCountryId(FirstLevelDivisionQuery
                             .getDivision(CustomerController.customer.getDivisionId())) ) );
+            ObservableList<String> firstLevelDivisionObservableList = FirstLevelDivisionQuery
+                    .getFirstLevelDivisionData(CountryQuery.getCountryId(countryCb.getSelectionModel().getSelectedItem()));
+            firstLevDivCb.setItems(firstLevelDivisionObservableList);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
