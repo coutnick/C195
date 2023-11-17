@@ -109,8 +109,6 @@ public class AppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-
-
             ObservableList<Appointments> appointmentsObservableList = AppointmentQuery.getAppointmentData();
             filteredAppointments = new FilteredList<>(appointmentsObservableList);
             ToggleGroup toggleGroup = new ToggleGroup();
@@ -200,7 +198,14 @@ public class AppointmentController implements Initializable {
      * @throws SQLException
      */
     public void deleteButtonClick(ActionEvent actionEvent) throws SQLException {
-        appointment = appointmentsTable.getSelectionModel().getSelectedItem();
+
+            appointment = appointmentsTable.getSelectionModel().getSelectedItem();
+            if(appointment == null) {
+                alert.setContentText("Please select an appointment to delete");
+                alert.showAndWait();
+                return;
+            }
+
         alert.setContentText("Are you sure you want to delete this appointment");
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
