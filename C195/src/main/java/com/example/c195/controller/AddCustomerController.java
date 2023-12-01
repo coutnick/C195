@@ -6,8 +6,6 @@ import com.example.c195.dao.CustomerQuery;
 import com.example.c195.dao.FirstLevelDivisionQuery;
 import com.example.c195.dao.UserQuery;
 import com.example.c195.helper.TimeStuff;
-import com.example.c195.model.Countries;
-import com.example.c195.model.FirstLevelDivisions;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,9 +18,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
