@@ -86,9 +86,11 @@ public class LoginController implements Initializable {
                 stage.show();
                 return;
             }
+
         }
         try {
             alertTwo.setContentText("There are no appointments in the next 15 minutes");
+            alertTwo.showAndWait();
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("mainMenu.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -103,7 +105,7 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * This initializes the login screen when the application starts. It also will translate to french if the user is
+     * This initializes the login screen when the application starts. It also will translate to French if the user is
      * located in france
      * @param url
      * @param rb

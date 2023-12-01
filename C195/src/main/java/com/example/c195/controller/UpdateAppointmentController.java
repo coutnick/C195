@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -58,10 +59,11 @@ public class UpdateAppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            Format startMinFormat = new SimpleDateFormat("mm");
-            Format endMinFormat = new SimpleDateFormat("mm");
-            String startMin = startMinFormat.format(AppointmentController.appointment.getStart().getMinute());
-            String endMin = endMinFormat.format(AppointmentController.appointment.getEnd().getMinute());
+            LocalDateTime startTime = AppointmentController.appointment.getStart();
+            LocalDateTime endTime = AppointmentController.appointment.getEnd();
+            LocalDateTime convertedStartTime = TimeStuff.localFormattedTime(startTime);
+            LocalDateTime convertedEndTime = TimeStuff.localFormattedTime(endTime);
+            TimeStuff.localFormattedTime(endTime);
             ObservableList<String> contactNames = ContactQuery.getContactNames();
             appointmentIdTf.setText(Integer.valueOf(AppointmentController.appointment.getAppointmentId()).toString());
             titleTf.setText(AppointmentController.appointment.getTitle());
@@ -71,11 +73,19 @@ public class UpdateAppointmentController implements Initializable {
             typeTf.setText(AppointmentController.appointment.getType());
             locationTf.setText(AppointmentController.appointment.getLocation());
             startDatePicker.setValue(AppointmentController.appointment.getStart().toLocalDate());
-            startHourTf.setText(Integer.valueOf(AppointmentController.appointment.getStart().getHour()).toString());
-            startMinTf.setText(String.valueOf(AppointmentController.appointment.getStart().getMinute()));
+            startHourTf.setText(String.valueOf(Integer.valueOf(convertedStartTime.getHour())));
+            startMinTf.setText(String.valueOf(Integer.valueOf(convertedStartTime.getMinute())));
+            String startMinText = startMinTf.getText();
+            if(startMinText.equals("0")) {
+                startMinTf.setText("00");
+            }
             endDatePicker.setValue(AppointmentController.appointment.getEnd().toLocalDate());
-            endHourTf.setText(Integer.valueOf(AppointmentController.appointment.getEnd().getHour()).toString());
-            endMinTf.setText(String.valueOf(AppointmentController.appointment.getEnd().getMinute()));
+            endHourTf.setText(String.valueOf(Integer.valueOf(convertedEndTime.getHour())));
+            endMinTf.setText(String.valueOf(Integer.valueOf(convertedEndTime.getMinute())));
+            String endMinText = endMinTf.getText();
+            if(endMinText.equals("0")) {
+                endMinTf.setText("00");
+            }
             descriptionTextArea.setText(AppointmentController.appointment.getDescription());
             contactComboBox.setValue(ContactQuery.getContactName(AppointmentController.appointment.getContactId()));
         } catch (Exception e) {
