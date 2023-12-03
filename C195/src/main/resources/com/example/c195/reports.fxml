@@ -25,6 +25,9 @@
       </TableView>
       <Button fx:id="backButton" layoutX="838.0" layoutY="581.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
       <ComboBox fx:id="optionCb" disable="true" layoutX="202.0" layoutY="116.0" onAction="#optionCbClicked" prefWidth="150.0" />
-      <Label fx:id="infoLabel" layoutX="435.0" layoutY="129.0" prefHeight="17.0" prefWidth="375.0" text="Information: " />
+      <Label fx:id="infoLabel" layoutX="386.0" layoutY="93.0" prefHeight="67.0" prefWidth="472.0" text="Information: ">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
    </children>
 </AnchorPane>

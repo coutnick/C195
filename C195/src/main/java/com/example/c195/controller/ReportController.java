@@ -48,15 +48,18 @@ public class ReportController implements Initializable {
 
     /**
      * Initializes the comboContentObservableList and the Month Observable list
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         comboContentObservableList.add("Type");
         comboContentObservableList.add("Month");
         comboContentObservableList.add("Contact");
         comboContentObservableList.add("User");
+        comboContentObservableList.add("Country");
         reportCb.setItems(comboContentObservableList);
 
         monthObservableList.add("JANUARY");
@@ -72,16 +75,16 @@ public class ReportController implements Initializable {
         monthObservableList.add("NOVEMBER");
         monthObservableList.add("DECEMBER");
 
-
     }
 
     /**
      * This enables the option combo box corresponding to the report chosen
+     *
      * @param actionEvent report combo box clicked
      * @throws SQLException
      */
     public void reportCbClicked(ActionEvent actionEvent) throws SQLException {
-        ObservableList<Appointments> appointmentsObservableList = AppointmentQuery.getAppointmentData();
+
         String option = reportCb.getValue();
         try {
             if (option.equals("Type")) {
@@ -96,6 +99,9 @@ public class ReportController implements Initializable {
             } else if (option.equals("User")) {
                 optionCb.setDisable(false);
                 optionCb.setItems(UserQuery.getUserNames());
+            } else if (option.equals("Country")) {
+                optionCb.setDisable(false);
+                optionCb.setItems(CountryQuery.getCountryData());
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -117,10 +123,10 @@ public class ReportController implements Initializable {
     }
 
     /**
-     * @lambda The lambda is this fucntion is used to set the time to the local time for every appointment in the list. The lambda
-     * justification is that it can go through a stream of all times and change the date.
      * @param actionEvent
      * @throws SQLException
+     * @lambda The lambda is this fucntion is used to set the time to the local time for every appointment in the list. The lambda
+     * justification is that it can go through a stream of all times and change the date.
      */
     public void optionCbClicked(ActionEvent actionEvent) throws SQLException {
         ObservableList<Appointments> primaryAppointmentsObservableList = AppointmentQuery.getAppointmentData();
@@ -171,7 +177,7 @@ public class ReportController implements Initializable {
             case "Contact":
                 infoLabel.setText("Information");
                 appointmentTv.getItems().clear();
-                if(optionCb.getValue() != null) {
+                if (optionCb.getValue() != null) {
                     String name = optionCb.getValue();
                     ObservableList<Appointments> appointmentsObservableListByContact = FXCollections.observableArrayList();
                     try {
@@ -188,7 +194,7 @@ public class ReportController implements Initializable {
                 }
             case "User":
                 appointmentTv.getItems().clear();
-                if(optionCb.getValue() != null) {
+                if (optionCb.getValue() != null) {
                     String user = optionCb.getValue();
                     ObservableList<Appointments> appointmentsObservableListByCountry = FXCollections.observableArrayList();
                     try {
@@ -203,9 +209,23 @@ public class ReportController implements Initializable {
                     }
                     break;
                 }
+            case "Country":
+                appointmentTv.getItems().clear();
+                if (optionCb.getValue() != null) {
+                    String countryName = optionCb.getValue();
+                    int id = CountryQuery.getCountryId(countryName);
+                    int count = CustomerQuery.customerCountryCount(id);
+                    if (count == 1) {
+                        infoLabel.setText("There is 1 customer in " + countryName);
+                        break;
+                    } else {
+                        infoLabel.setText("There are " + count + " customers in " + countryName);
+                    }
+                    break;
+                }
         }
-    }
 
+    }
 }
 
 

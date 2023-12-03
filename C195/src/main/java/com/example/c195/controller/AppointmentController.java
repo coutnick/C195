@@ -22,7 +22,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -256,7 +258,7 @@ public class AppointmentController implements Initializable {
      */
     public void viewByWeekSelected(ActionEvent actionEvent) {
         filteredAppointments.setPredicate(appointment -> {
-            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime now = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0));
             LocalDateTime oneWeekFromNow = now.plusWeeks(1);
             LocalDateTime appointmentStart = appointment.getStart();
             return appointmentStart.isAfter(now) && appointmentStart.isBefore(oneWeekFromNow);
@@ -272,7 +274,7 @@ public class AppointmentController implements Initializable {
 
     public void viewByMonthSelected(ActionEvent actionEvent) throws SQLException {
         filteredAppointments.setPredicate(appointment -> {
-            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime now = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0));
             LocalDateTime oneMonthFromNow = now.plusMonths(1);
             LocalDateTime appointmentStart = appointment.getStart();
             return appointmentStart.isAfter(now) && appointmentStart.isBefore(oneMonthFromNow);

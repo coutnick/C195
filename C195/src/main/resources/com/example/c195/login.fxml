@@ -8,7 +8,7 @@
       <TextField fx:id="usernameTF" layoutX="41.0" layoutY="184.0" prefHeight="25.0" prefWidth="300.0" promptText="Username" />
       <PasswordField fx:id="passwordTF" layoutX="41.0" layoutY="226.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" />
       <Button fx:id="loginBut" layoutX="159.0" layoutY="272.0" mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="19.0" prefWidth="65.0" text="Login" />
-      <Label fx:id="zoneIdLabel" layoutX="142.0" layoutY="349.0" prefHeight="25.0" prefWidth="100.0" text="zoneID" textAlignment="CENTER" />
+      <Label fx:id="zoneIdLabel" layoutX="142.0" layoutY="349.0" prefHeight="26.0" prefWidth="239.0" text="zoneID" textAlignment="CENTER" />
       <Button fx:id="exitBut" layoutX="159.0" layoutY="309.0" mnemonicParsing="false" onAction="#exitClick" prefHeight="25.0" prefWidth="65.0" text="Exit" />
    </children>
 </AnchorPane>

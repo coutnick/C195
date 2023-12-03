@@ -120,6 +120,26 @@ public abstract class CustomerQuery {
     }
 
     /**
+     * This query gets a count of the number of customers per country
+     * @param divisionId
+     * @return number of customers per country
+     */
+
+    public static int customerCountryCount(int divisionId) throws SQLException {
+        Connection connection = JDBC.connection;
+
+        PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS country_count " +
+                "From customers c JOIN  first_level_divisions d ON c.division_id = d.division_id WHERE d.country_id = " + divisionId);
+        ResultSet rs = ps.executeQuery();
+        int count = 0;
+        if(rs.next()) {
+            count = rs.getInt("country_count");
+        }
+        return count;
+    }
+
+
+    /**
      * This query deletes a single customer from the customer table in the database
      * @param customerId
      */
